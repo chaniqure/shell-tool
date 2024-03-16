@@ -1,8 +1,9 @@
 #!/bin/bash
+# 项目地址：https://github.com/chaniqure/shell-tool
 
-# 国内加速脚本地址
+# 国内加速前缀
 innerPrefix="https://fastraw.ixnic.net/chaniqure/shell-tool/main"
-# 国外GitHub官方脚本地址
+# 国外GitHub官方前缀
 outerPrefix="https://raw.githubusercontent.com/chaniqure/shell-tool/main"
 
 # 执行脚本地址变量
