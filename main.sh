@@ -8,11 +8,11 @@ while :; do echo
     read -p "请输入操作编号：" env
     case "$env" in
         1)
-            prefix="https://raw.githubusercontent.com/chaniqure/shell-tool/main/"
+            prefix="https://fastraw.ixnic.net/chaniqure/shell-tool/main"
             break
             ;;
         2)
-            prefix="https://fastly.jsdelivr.net/gh/chaniqure/shell-tool@main/"
+            prefix="https://raw.githubusercontent.com/chaniqure/shell-tool/main"
             break
             ;;
         *)
@@ -27,10 +27,12 @@ while :; do echo
     case "$option" in
         1)
             clear
+            # echo -e " \033[1m \033[32m 执行地址为：$prefix/system_init.sh \033[0m"
             bash -c "$(curl -sLk $prefix/system_init.sh)"
             ;;
         2)
             clear
+            # echo -e " \033[1m \033[32m 执行地址为：$prefix/help.sh \033[0m"
             bash -c "$(curl -sLk $prefix/help.sh)"
             ;;
         *)
