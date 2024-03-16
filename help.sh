@@ -5,8 +5,7 @@ function echoInfo(){
     echo -e " \033[1m \033[32m $1 \033[0m"
 }
 function showChangeIpTips() {
-    isDebian=`cat "/proc/version" | grep 'debian' | wc -l`
-    if [[ $isDebian > 0 ]]; then
+    if [[ `cat "/proc/version" | grep 'debian' | wc -l` > 0 ]]; then
         echoInfo "
 编辑： /etc/network/interfaces
 示例：
@@ -17,8 +16,7 @@ gateway 10.1.1.1
 dns-nameservers 10.1.1.1
     "
     else
-        isUbuntu=`cat "/proc/version" | grep 'ubuntu' | wc -l`
-        if [[ $isUbuntu > 0 ]]; then
+        if [[ `cat "/proc/version" | grep 'ubuntu' | wc -l` > 0 ]]; then
         echoInfo "
 编辑 /etc/netplan 目录下面的yml文件，视实际情况而定
 示例：

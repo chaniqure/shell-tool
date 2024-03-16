@@ -27,18 +27,24 @@ while :; do echo
 done
 while :; do echo
     echo '请选择操作:'
-    echo -e "\t1. 系统依赖环境处理"
-    echo -e "\t2. 帮助"
+    echo -e "\t1. 安装系统依赖环境"
+    echo -e "\t2. 安装开发环境"
+    echo -e "\t3. 创建服务"
+    echo -e "\t4. 获取工具脚本"
+    echo -e "\t5. 其他"
     read -p "请输入操作编号：" option
     case "$option" in
         1)
             clear
-            echo -e " \033[1m \033[32m 执行地址为：$prefix/system_init.sh \033[0m"
             bash -c "$(curl -sLk $prefix/system_init.sh)"
             ;;
-        2)
+        4)
             clear
-            echo -e " \033[1m \033[32m 执行地址为：$prefix/help.sh \033[0m"
+            curl -o func1.sh $prefix/func.sh
+            ;;
+        5)
+            clear
+            # echo -e " \033[1m \033[32m 执行地址为：$prefix/help.sh \033[0m"
             bash -c "$(curl -sLk $prefix/help.sh)"
             ;;
         *)

@@ -1,3 +1,5 @@
+#!/bin/bash
+# 初始化系统相关依赖
 function isRootUser() {
     RESULT=1
     if [ $UID -ne 0 ]; then
@@ -5,7 +7,7 @@ function isRootUser() {
     fi
 }
 
-
+# 判断当前用户是否是root用户，不是root用户就退出脚本执行
 function mustRootUser() {
     isRootUser
     if [ $RESULT -eq 0 ] ; then
@@ -24,8 +26,7 @@ function echoError(){
     echo -e " \033[1m \033[31m $1 \033[0m"
 }
 
-
-
+# 用于读取用户输入
 function readInput() {
     if [ "$1" = "" ]; then
         echoError "消息为空"
@@ -49,6 +50,7 @@ function addUserToDocker(){
     systemctl restart docker
 }
 
+# 基础初始化
 function baseInit() {
     mustRootUser
     info "更改为上海时区"
@@ -260,7 +262,7 @@ function command() {
         read -p "请输入操作编号：" option
         case "$option" in
         1)
-            init
+            baseInit
             ;;
         2)
             dockerInstall
