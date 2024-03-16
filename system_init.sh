@@ -246,17 +246,17 @@ function command() {
 #######################################################################
 "
         echo '请选择操作'
-        echo "\t1. 系统初始化（安装常用命令，更改系统时区）"
-        echo "\t2. 安装docker"
-        echo "\t3. 安装k3s"
-        echo "\t4. 安装docker-compose"
-        echo "\t5. 添加用户到docker"
-        echo "\t6. root开启远程访问"
-        echo "\t7. docker开启远程连接"
-        echo "\t8. 添加sudo用户"
-        echo "\t9. 处理vim拷贝问题"
-        echo "\t10. 处理别名问题"
-        echo "\t99. 退出"
+        echo "1. 系统初始化（安装常用命令，更改系统时区）"
+        echo "2. 安装docker"
+        echo "3. 安装k3s"
+        echo "4. 安装docker-compose"
+        echo "5. 添加用户到docker"
+        echo "6. root开启远程访问"
+        echo "7. docker开启远程连接"
+        echo "8. 添加sudo用户"
+        echo "9. 处理vim拷贝问题"
+        echo "10. 处理别名问题"
+        echo "99. 退出"
         read -p "请输入操作编号：" option
         case "$option" in
         1)
