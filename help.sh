@@ -65,10 +65,10 @@ function tips() {
                                帮助
 #######################################################################
 "
-        echo  '请选择操作'
-        echo  "  1. 更改系统ip"
-        echo  "  9. 退出"
-        read  -p "请输入操作编号：" option
+        echo -e '请选择操作'
+        echo -e "\t1. 更改系统ip"
+        echo -e "\t9. 退出"
+        read -p "请输入操作编号：" option
         case "$option" in
         1)
             showChangeIpTips

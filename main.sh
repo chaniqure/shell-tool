@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# 打印日志，有颜色
-function echoError(){
-    echo -e " \033[1m \033[31m $1 \033[0m"
-}
-
 while :; do echo
     echo '请选择操作:'
-    echo "  1. 系统依赖环境处理"
-    echo "  2. 帮助"
+    echo -e "\t1. 系统依赖环境处理"
+    echo -e "\t2. 帮助"
     read -p "请输入操作编号：" option
     case "$option" in
         1)  
@@ -20,6 +15,6 @@ while :; do echo
             bash -c "$(curl -sLk https://raw.githubusercontent.com/chaniqure/shell-tool/main/help.sh)"
             ;;
         *)
-            echoError '输入参数错误，请重试'
+            echo -e " \033[1m \033[31m 输入参数错误，请重试 \033[0m"
         esac
 done

@@ -245,18 +245,18 @@ function command() {
                                自用安装工具
 #######################################################################
 "
-        echo '请选择操作'
-        echo "  1. 系统初始化（安装常用命令，更改系统时区）"
-        echo "  2. 安装docker"
-        echo "  3. 安装k3s"
-        echo "  4. 安装docker-compose"
-        echo "  5. 添加用户到docker"
-        echo "  6. root开启远程访问"
-        echo "  7. docker开启远程连接"
-        echo "  8. 添加sudo用户"
-        echo "  9. 处理vim拷贝问题"
-        echo "  10. 处理别名问题"
-        echo "  99. 退出"
+        echo -e '请选择操作'
+        echo -e "\t1. 系统初始化（安装常用命令，更改系统时区）"
+        echo -e "\t2. 安装docker"
+        echo -e "\t3. 安装k3s"
+        echo -e "\t4. 安装docker-compose"
+        echo -e "\t5. 添加用户到docker"
+        echo -e "\t6. root开启远程访问"
+        echo -e "\t7. docker开启远程连接"
+        echo -e "\t8. 添加sudo用户"
+        echo -e "\t9. 处理vim拷贝问题"
+        echo -e "\t10. 处理别名问题"
+        echo -e "\t99. 退出"
         read -p "请输入操作编号：" option
         case "$option" in
         1)
