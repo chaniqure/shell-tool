@@ -50,7 +50,7 @@ function main() {
                 ;;
             3)
                 clear
-                bash -c "$(curl -sLk $prefix/generate_service.sh)" -s $prefix
+                bash -c "$(curl -sLk $prefix/generate_service.sh)" $prefix
                 ;;
             4)
                 clear
