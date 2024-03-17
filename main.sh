@@ -46,7 +46,7 @@ function main() {
                 ;;
             2)
                 clear
-                bash -c "$(curl -sLk $prefix/generate_env.sh)" -s $prefix
+                bash -c "$(curl -sLk $prefix/generate_env.sh)" $prefix
                 ;;
             3)
                 clear
