@@ -33,7 +33,17 @@ function commandInit() {
 function dockerInstall(){
     mustRootUser
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-    curl -sSL https://get.daocloud.io/docker | sh
+#     curl -sSL https://get.daocloud.io/docker | sh
+    if ! which docker; then
+        info "docker 未安装，脚本尝试自动安装..."
+        wget -qO- get.docker.com | bash
+        if which docker; then
+            info "docker 安装成功！"
+        else
+            error "docker 安装失败，请手动安装！"
+            exit 1
+        fi
+    fi
     changeDockerMirror
 }
 function dockerComposeInstall(){

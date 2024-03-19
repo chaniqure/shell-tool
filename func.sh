@@ -7,6 +7,12 @@ function INFO() {
     _logfile "${TIME} [INFO] $1"
 }
 
+# 记录warn日志文件
+function WARN() {
+    TIME=`date '+%Y-%m-%d %H:%M:%S'`
+    echo -e "\033[34m ${TIME}\033[1m \033[1;31;33m [WARN] \033[0m $1"
+    _logfile "${TIME} [INFO] $1"
+}
 # 记录error日志文件
 function ERROR() {
     TIME=`date '+%Y-%m-%d %H:%M:%S'`
@@ -25,6 +31,10 @@ function _logfile() {
 # 打印日志，有颜色
 function info(){
     echo -e " \033[1m \033[32m $1 \033[0m"
+}
+# 打印日志，有颜色
+function warn(){
+    echo -e " \033[1;31;33m $1 \033[0m"
 }
 
 # 打印日志，有颜色
@@ -96,24 +106,33 @@ function isRootUser() {
 function mustRootUser() {
     isRootUser
     if [ $RESULT -eq 0 ] ; then
-        echoError "please switch to root user"
+        error "please switch to root user"
         exit
     fi
 }
 
 
-# 用于读取用户输入
-function readInput() {
+# 用于读取用户输入，必须输入
+function requireInput() {
     if [ "$1" = "" ]; then
-        echoError "消息为空"
+        error "消息为空"
         exit
     fi
     while :; do echo
       read -e -p "$1" RESULT
       if [  "$RESULT" = ""  ]; then
-        echo "输入内容不能为空"
+        error "输入内容不能为空"
       else
         break
       fi
     done
+}
+
+# 用于读取用户输入，必须输入
+function input() {
+    if [ "$1" = "" ]; then
+        error "消息为空"
+        exit
+    fi
+    read -e -p "$1" RESULT
 }
