@@ -42,7 +42,7 @@ function readInput() {
     done
 }
 # 下载模板的网址的前缀，由主脚本传入
-prefix=$1
+prefix=$0
 echo "依赖前缀：$prefix"
 readInput "请输入服务名："
 # 输入服务名
