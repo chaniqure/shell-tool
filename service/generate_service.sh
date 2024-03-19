@@ -30,7 +30,8 @@ EOF
 
 
 function get_template() {
-    curl -o ${pwd}/template.sh $service_template_url
+    curl -o $service_dir/template.sh $service_template_url
+    clear
     input "下载脚本模板完成，路径：${pwd}/template.sh，修改里面的服务名和端口，按任意键退出"
 }
 
