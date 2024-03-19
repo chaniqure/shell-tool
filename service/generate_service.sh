@@ -42,9 +42,10 @@ function readInput() {
     done
 }
 # 下载模板的网址的前缀，由主脚本传入
-prefix=$0
-echo "依赖前缀：$prefix"
-readInput "请输入服务名："
+echo "Argument 0: $0"
+echo "Argument 1: $1"
+echo "Argument 2: $2"
+echo "Argument 3: $3"
 # 输入服务名
 # 是否需要安装成系统命令
     # 不需要的话，就输入需要生成脚本的文件路径

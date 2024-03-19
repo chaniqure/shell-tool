@@ -46,11 +46,11 @@ function main() {
                 ;;
             2)
                 clear
-                bash -c "$(curl -sLk $prefix/env/generate_env.sh)" $prefix
+                bash -c "$(curl -sLk $prefix/env/generate_env.sh)" _ $prefix
                 ;;
             3)
                 clear
-                bash -c "$(curl -sLk $prefix/service/generate_service.sh)" $prefix
+                bash -c "$(curl -sLk $prefix/service/generate_service.sh)" _ $prefix
                 ;;
             4)
                 clear
