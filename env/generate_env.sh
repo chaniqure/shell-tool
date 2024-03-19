@@ -8,7 +8,7 @@ printf "
                            开始初始化开发环境
 #######################################################################
 "
-base_dir=$HOME
+base_dir=$HOME/env
 # base_dir="/Users/cc/Downloads/env"
 function init_base_dir() {
     input "请输入根目录（默认$HOME目录）："
