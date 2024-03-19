@@ -27,7 +27,7 @@ EOF
     script_name="${name}-completion.bash"
     # 将完成脚本内容写入文件
     echo "$content" > "/etc/bash_completion.d/$script_name"
-    source "/etc/bash_completion.d/$script_name"
+    source /etc/bash_completion.d/$script_name
     echo "创建 '$script_name' tab提示功能成功."
 }
 
@@ -58,6 +58,7 @@ function init_service() {
     replace /usr/local/bin/$service_name "\$PORT" $service_port
     chmod a+x /usr/local/bin/$service_name
     create_service_completion $service_name
+    clear
     input "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口，按任意键退出"
 }
 # 下载模板的网址的前缀，由主脚本传入
