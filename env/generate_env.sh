@@ -20,19 +20,25 @@ function init_base_dir() {
 
 function init_db_user_config() {
     mysql_root_pass="123456"
-    input "请输入mysql的root密码（默认123456）："
+    input "请输入mysql的root密码（默认：123456）："
     if [ ! -z "$RESULT" ]; then
         mysql_root_pass=$RESULT
     fi
-    input "请输入redis密码（默认123456）："
+    input "请输入redis密码（默认：123456）："
     redis_pass="123456"
     if [ ! -z "$RESULT" ]; then
         redis_pass=$RESULT
     fi
-#     require_input "请输入mongo用户名："
-#     mongo_user=$RESULT
-#     require_input "请输入mongo用户密码："
-#     mongo_pass=$RESULT
+    input "请输入mongo用户名（默认：test）："
+    mongo_user="test"
+    if [ ! -z "$RESULT" ]; then
+        mongo_user=$RESULT
+    fi
+    input "请输入mongo用户密码（默认：123456）："
+    mongo_pass="123456"
+    if [ ! -z "$RESULT" ]; then
+        mongo_pass=$RESULT
+    fi
 }
 
 function download_template() {
@@ -52,12 +58,13 @@ function download_template() {
     mkdir -p $base_dir/docker/conf
     mkdir -p $base_dir/docker/data
     curl -o $base_dir/env.yml $env_url
+    replace $base_dir/env.yml "\$MYSQL_ROOT_PASS" $mysql_root_pass
+    replace $base_dir/env.yml "\$MONGO_USER" $mongo_user
+    replace $base_dir/env.yml "\$MONGO_PASS" $mongo_pass
+#     sed -i "s/$MONGO_USER/$mongo_user/g" $base_dir/env.yml
     curl -o $base_dir/docker/conf/redis.conf $redis_conf_url
+    replace $base_dir/docker/conf/redis.conf $REDIS_PASS $redis_pass
     curl -o $base_dir/docker/conf/mongo.conf $mongo_conf_url
-}
-
-function replace_db_user_config() {
-    echo "111"
 }
 
 function db_tips() {

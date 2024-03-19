@@ -136,3 +136,7 @@ function input() {
     fi
     read -e -p "$1" RESULT
 }
+
+function replace() {
+    sed -i ".bak" "s/$2/$3/g" $1
+}
