@@ -47,7 +47,8 @@ function main() {
         case "$option" in
             1)
                 clear
-                bash -c "$(curl -sLk $location/system_init.sh)"
+                # bash -c "$(curl -sLk $location/system_init.sh)"
+                source <(curl -sLk $location/system_init.sh)
                 ;;
             2)
                 clear
