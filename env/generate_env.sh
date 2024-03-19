@@ -1,53 +1,6 @@
 #!/bin/sh
-
-function isRootUser() {
-    RESULT=1
-    if [ $UID -ne 0 ]; then
-        RESULT=0
-    fi
-}
-
-# 判断当前用户是否是root用户，不是root用户就退出脚本执行
-function mustRootUser() {
-    isRootUser
-    if [ $RESULT -eq 0 ] ; then
-        echoError "please switch to root user"
-        exit
-    fi
-}
-
-# 打印日志，有颜色
-function echoInfo(){
-    echo -e " \033[1m \033[32m $1 \033[0m"
-}
-
-# 打印日志，有颜色
-function echoError(){
-    echo -e " \033[1m \033[31m $1 \033[0m"
-}
-
-# 用于读取用户输入
-function readInput() {
-    if [ "$1" = "" ]; then
-        echoError "消息为空"
-        exit
-    fi
-    while :; do echo
-      read -e -p "$1" RESULT
-      if [  "$RESULT" = ""  ]; then
-        echo "输入内容不能为空"
-      else
-        break
-      fi
-    done
-}
 # 下载模板的网址的前缀，由主脚本传入
-echo '-------------------'
-echo "Argument 0: $0"
-echo "Argument 1: $1"
-echo "Argument 2: $2"
-echo "Argument 3: $3"
-echo "Argument test: $test"
-
+prefix=$1
+info "获取到的前缀地址为：$prefix"
 readInput "根目录："
 # 输入需要生成开发环境的home目录，默认$HOME

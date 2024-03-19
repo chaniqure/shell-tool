@@ -1,5 +1,37 @@
 #!/bin/bash
 
+# 记录info日志文件
+function INFO() {
+    TIME=`date '+%Y-%m-%d %H:%M:%S'`
+    echo -e "\033[34m ${TIME}\033[1m \033[32m [INFO] \033[0m $1"
+    _logfile "${TIME} [INFO] $1"
+}
+
+# 记录error日志文件
+function ERROR() {
+    TIME=`date '+%Y-%m-%d %H:%M:%S'`
+    echo -e "\033[34m ${TIME}\033[1m \033[31m [ERROR] \033[0m $1"
+    _logfile "${TIME} [INFO] $1"
+}
+
+# 记录日志文件
+function _logfile() {
+    if [ ! -d ${home}/log ] ; then
+        mkdir -p ${home}/log
+    fi
+    echo $1 >> ${home}/log/startup.log
+}
+
+# 打印日志，有颜色
+function info(){
+    echo -e " \033[1m \033[32m $1 \033[0m"
+}
+
+# 打印日志，有颜色
+function error(){
+    echo -e " \033[1m \033[31m $1 \033[0m"
+}
+
 # 校验端口是否占用
 function checkPort() {
     checkPortProcess $1
@@ -42,14 +74,6 @@ function killByPort() {
     fi
 }
 
-# 记录日志文件
-function _logfile() {
-    if [ ! -d ${home}/log ] ; then
-        mkdir -p ${home}/log
-    fi
-    echo $1 >> ${home}/log/startup.log
-}
-
 # 获取端口进程id
 function getPortProcessId() {
     RESULT=`netstat -nlp | grep $1 | awk '{print $7}' | awk -F '/' '{print $1}'`
@@ -60,26 +84,36 @@ function checkPortProcess() {
     RESULT=`netstat -nlp | grep $1 | awk "{print $7}" | wc -l`
 }
 
-# 记录info日志文件
-function info() {
-    TIME=`date '+%Y-%m-%d %H:%M:%S'`
-    echo -e "\033[34m ${TIME}\033[1m \033[32m [INFO] \033[0m $1"
-    _logfile "${TIME} [INFO] $1"
+# 初始化系统相关依赖
+function isRootUser() {
+    RESULT=1
+    if [ $UID -ne 0 ]; then
+        RESULT=0
+    fi
 }
 
-# 记录error日志文件
-function error() {
-    TIME=`date '+%Y-%m-%d %H:%M:%S'`
-    echo -e "\033[34m ${TIME}\033[1m \033[31m [ERROR] \033[0m $1"
-    _logfile "${TIME} [INFO] $1"
+# 判断当前用户是否是root用户，不是root用户就退出脚本执行
+function mustRootUser() {
+    isRootUser
+    if [ $RESULT -eq 0 ] ; then
+        echoError "please switch to root user"
+        exit
+    fi
 }
 
-# 打印日志，有颜色
-function echoInfo(){
-    echo -e " \033[1m \033[32m $1 \033[0m"
-}
 
-# 打印日志，有颜色
-function echoError(){
-    echo -e " \033[1m \033[31m $1 \033[0m"
+# 用于读取用户输入
+function readInput() {
+    if [ "$1" = "" ]; then
+        echoError "消息为空"
+        exit
+    fi
+    while :; do echo
+      read -e -p "$1" RESULT
+      if [  "$RESULT" = ""  ]; then
+        echo "输入内容不能为空"
+      else
+        break
+      fi
+    done
 }
