@@ -62,13 +62,13 @@ function main() {
                 clear
                 . /Users/cc/shell-tool/func.sh
                 info "执行地址为：$location/env/generate_env.sh"
-                # bash -c "$(curl -sLk $prefix/env/generate_env.sh)" $prefix --test=1232121
+                # bash -c "$(curl -sLk $prefix/env/generate_env.sh)" $location
                 bash /Users/cc/shell-tool/env/generate_env.sh $location
                 ;;
             3)
                 clear
                 info "执行地址为：$location/service/generate_service.sh"
-                # bash -c "$(curl -sLk $prefix/service/generate_service.sh)" $prefix --test=1232122
+                # bash -c "$(curl -sLk $prefix/service/generate_service.sh)" $location
                 bash /Users/cc/shell-tool/env/generate_env.sh $location
                 ;;
             4)
