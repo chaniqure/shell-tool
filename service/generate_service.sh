@@ -56,6 +56,7 @@ function init_service() {
     curl -o /usr/local/bin/$service_name $service_template_url
     replace /usr/local/bin/$service_name "\$SERVICE_NAME" $service_name
     replace /usr/local/bin/$service_name "\$PORT" $service_port
+    chmod a+x /usr/local/bin/$service_name
     create_service_completion $service_name
     input "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口，按任意键退出"
 }
