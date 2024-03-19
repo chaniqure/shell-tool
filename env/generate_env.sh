@@ -11,7 +11,7 @@ printf "
 base_dir=$HOME/env
 # base_dir="/Users/cc/Downloads/env"
 function init_base_dir() {
-    input "请输入根目录（默认$HOME目录）："
+    input "请输入根目录（默认$base_dir目录）："
     # 输入需要生成开发环境的home目录，默认$HOME
     if [ ! -z "$RESULT" ]; then
         base_dir=$RESULT/env
