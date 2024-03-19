@@ -47,6 +47,7 @@ echo "Argument 0: $0"
 echo "Argument 1: $1"
 echo "Argument 2: $2"
 echo "Argument 3: $3"
+echo "Argument test: $test"
 
 readInput "根目录："
 # 输入需要生成开发环境的home目录，默认$HOME

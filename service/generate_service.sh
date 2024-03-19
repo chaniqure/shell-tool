@@ -46,6 +46,7 @@ echo "Argument 0: $0"
 echo "Argument 1: $1"
 echo "Argument 2: $2"
 echo "Argument 3: $3"
+echo "Argument test: $test"
 # 输入服务名
 # 是否需要安装成系统命令
     # 不需要的话，就输入需要生成脚本的文件路径

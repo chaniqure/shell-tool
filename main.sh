@@ -47,12 +47,12 @@ function main() {
             2)
                 clear
                 echo -e " \033[1m \033[32m 执行地址为：$prefix/env/generate_env.sh \033[0m"
-                bash -c "$(curl -sLk $prefix/env/generate_env.sh)" $prefix
+                bash -c "$(curl -sLk $prefix/env/generate_env.sh)" $prefix --test=1232121
                 ;;
             3)
                 clear
                 echo -e " \033[1m \033[32m 执行地址为：$prefix/service/generate_service.sh \033[0m"
-                bash -c "$(curl -sLk $prefix/service/generate_service.sh)" $prefix
+                bash -c "$(curl -sLk $prefix/service/generate_service.sh)" $prefix --test=1232122
                 ;;
             4)
                 clear
