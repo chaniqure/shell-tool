@@ -1,12 +1,11 @@
 #!/bin/sh
 # 用于部署单个项目，里面包含单个项目的启动、关闭、以及重启等操作
-# 项目启动端口
-port=$1
-# 项目根目录
-home=`pwd`
-# 启动服务名字
-name=$2
-
+# 项目启动端口，需要替换，用于关闭服务
+# ---------------------------- 需要修改的地方  -----------------------------
+port=$PORT
+# 启动服务名字，需要替换成实际的名字，用于日志打印
+name=$SERVICE_NAME
+# ---------------------------- 需要修改的地方  -----------------------------
 # 校验端口是否占用
 function check_port() {
     check_port_process $1
@@ -19,25 +18,17 @@ function check_port() {
 
 # 通过端口杀死进程
 function kill_by_port() {
-    echoColor "trying to kill process by port \"$1\""
+    info "trying to kill process by port \"$1\""
     if [ $1 -gt 0 ] ; then
         check_port_process $1
         if [ $RESULT -gt 0 ] ; then
-            echoColor "process is running on port $1, try kill it..."
+            info "process is running on port $1, try kill it..."
             get_port_process_id $1
             kill -9 $RESULT
         else
-            echoColor "process is not running!"
+            info "process is not running!"
         fi
     fi
-}
-
-# 记录日志文件
-function _logfile() {
-    if [ ! -d ${home}/log ] ; then
-        mkdir -p ${home}/log
-    fi
-    echo $1 >> ${home}/log/startup.log
 }
 
 # 获取端口进程id
@@ -74,15 +65,10 @@ function check_process(){
     info "$1 started !"
 }
 
-# 打印日志，有颜色
-function echoColor(){
-    echo -e " \033[1m \033[32m $1 \033[0m"
-}
-
 start(){
     check_port $port
     if [ $RESULT -gt 0 ] ; then
-        echoColor "${port} port is in using, please check the port"
+        info "${port} port is in using, please check the port"
         exit 1
     fi
     # ---------------------------- 需要添加的启动命令  -----------------------------
@@ -99,9 +85,9 @@ status(){
     check_port $port
     if [ $RESULT -gt 0 ] ; then
         get_port_process_id $port
-        echoColor "${name} is in running, processId is $RESULT"
+        info "${name} is in running, processId is $RESULT"
     else
-        echoColor "${name} is not running"
+        info "${name} is not running"
     fi
 }
 
@@ -127,5 +113,5 @@ case "$1" in
         status
         ;; 
     *)
-        echoColor 'operation does not exist, available operation: start stop restart status'
+        info 'operation does not exist, available operation: start stop restart status'
 esac

@@ -46,8 +46,8 @@ function main() {
     while :; do echo
         echo '请选择操作:'
         echo -e "\t1. 安装系统依赖环境"
-        echo -e "\t2. 安装开发环境"
-        echo -e "\t3. 创建服务"
+        echo -e "\t2. 下载docker-compose版本的MySQL、Redis、MongoDB的开发环境"
+        echo -e "\t3. 获取单体服务的启动关闭脚本"
         echo -e "\t4. 获取工具脚本"
         echo -e "\t5. 其他"
         read -p "请输入操作编号：" option

@@ -106,7 +106,7 @@ function is_root_user() {
 function must_root_user() {
     is_root_user
     if [ $RESULT -eq 0 ] ; then
-        error "please switch to root user"
+        error "请切换到root用户"
         exit
     fi
 }
@@ -115,7 +115,7 @@ function must_root_user() {
 # 用于读取用户输入，必须输入
 function require_input() {
     if [ "$1" = "" ]; then
-        error "消息为空"
+        error "输入内容不能为空"
         exit
     fi
     while :; do echo
