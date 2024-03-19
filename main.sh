@@ -29,12 +29,20 @@ function getLocation() {
     done
 }
 
+function execute() {
+    if [ $(uname -s) = "Darwin" ]; then
+        source $(pwd)/$1 $2
+    else
+        source <(curl -sLk $location/$1) $2
+    fi
+}
 
 function main() {
     # 初始化获取脚本地址
     getLocation
     # 获取获取远程工具脚本
-    source <(curl -sLk $location/func.sh)
+    # source <(curl -sLk $location/func.sh)
+    execute func.sh
     # eval $(curl -sLk $location/func.sh)
     while :; do echo
         echo '请选择操作:'
@@ -48,21 +56,24 @@ function main() {
             1)
                 clear
                 # bash -c "$(curl -sLk $location/system_init.sh)"
-                source <(curl -sLk $location/system_init.sh)
+                # source <(curl -sLk $location/system_init.sh)
+                execute system_init.sh
                 ;;
             2)
                 clear
                 info "执行地址为：$location/env/generate_env.sh"
                 # bash -c "$(curl -sLk $location/env/generate_env.sh)" $location
-                source <(curl -sLk $location/env/generate_env.sh) $location
+                # source <(curl -sLk $location/env/generate_env.sh) $location
+                execute env/generate_env.sh $location
                 # source /Users/cc/shell-tool/env/generate_env.sh $location
                 ;;
             3)
                 clear
                 info "执行地址为：$location/service/generate_service.sh"
                 # bash -c "$(curl -sLk $location/service/generate_service.sh)" $location
-                source <(curl -sLk $location/service/generate_service.sh) $location
-                # source /Users/cc/shell-tool/env/generate_env.sh $location
+                # source <(curl -sLk $location/service/generate_service.sh) $location
+                # source /Users/cc/shell-tool/service/generate_service.sh $location
+                execute service/generate_service.sh $location
                 ;;
             4)
                 clear
@@ -71,11 +82,13 @@ function main() {
             5)
                 clear
                 info "执行地址为：$location/help.sh"
-                bash -c "$(curl -sLk $location/help.sh)"
+                execute service/help.sh
+                # bash -c "$(curl -sLk $location/help.sh)"
                 ;;
             *)
                 error "输入参数错误，请重试"
             esac
     done
 }
+
 main
