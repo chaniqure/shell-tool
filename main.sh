@@ -54,7 +54,7 @@ function main() {
                 . /Users/cc/shell-tool/func.sh
                 info "执行地址为：$location/env/generate_env.sh"
                 # bash -c "$(curl -sLk $location/env/generate_env.sh)" $location
-                source <(curl -sLk https://IP/sub_script.sh) $location
+                source <(curl -sLk $location/env/generate_env.sh) $location
                 # source /Users/cc/shell-tool/env/generate_env.sh $location
                 ;;
             3)
