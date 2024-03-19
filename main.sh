@@ -29,22 +29,13 @@ function getLocation() {
     done
 }
 
-function loadRemoteFunc() {
-    curl -s "$location/func.sh" -o "func.sh"
-    # 检查下载是否成功
-    if [ $? -eq 0 ]; then
-        # 执行下载的脚本
-        source "func.sh"
-    else
-        echo "加载公共脚本失败"
-        exit 1
-    fi
-}
-
 
 function main() {
+    # 初始化获取脚本地址
     getLocation
-    loadRemoteFunc
+    # 获取获取远程工具脚本
+    source <(curl -sLk $location/func.sh)
+    # eval $(curl -sLk $location/func.sh)
     while :; do echo
         echo '请选择操作:'
         echo -e "\t1. 安装系统依赖环境"
@@ -62,14 +53,16 @@ function main() {
                 clear
                 . /Users/cc/shell-tool/func.sh
                 info "执行地址为：$location/env/generate_env.sh"
-                # bash -c "$(curl -sLk $prefix/env/generate_env.sh)" $location
-                bash /Users/cc/shell-tool/env/generate_env.sh $location
+                # bash -c "$(curl -sLk $location/env/generate_env.sh)" $location
+                source <(curl -sLk https://IP/sub_script.sh) $location
+                # source /Users/cc/shell-tool/env/generate_env.sh $location
                 ;;
             3)
                 clear
                 info "执行地址为：$location/service/generate_service.sh"
-                # bash -c "$(curl -sLk $prefix/service/generate_service.sh)" $location
-                bash /Users/cc/shell-tool/env/generate_env.sh $location
+                # bash -c "$(curl -sLk $location/service/generate_service.sh)" $location
+                source <(curl -sLk $location/service/generate_service.sh) $location
+                # source /Users/cc/shell-tool/env/generate_env.sh $location
                 ;;
             4)
                 clear
