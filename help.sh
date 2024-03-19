@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# 打印日志，有颜色
-function echoInfo(){
-    echo -e " \033[1m \033[32m $1 \033[0m"
-}
-function showChangeIpTips() {
+function show_change_ip_tips() {
     if [[ `cat "/proc/version" | grep 'debian' | wc -l` > 0 ]]; then
-        echoInfo "
+        info "
 编辑： /etc/network/interfaces
 示例：
 iface ens192 inet static
@@ -17,7 +13,7 @@ dns-nameservers 10.1.1.1
     "
     else
         if [[ `cat "/proc/version" | grep 'ubuntu' | wc -l` > 0 ]]; then
-        echoInfo "
+        info "
 编辑 /etc/netplan 目录下面的yml文件，视实际情况而定
 示例：
 network:
@@ -33,7 +29,7 @@ network:
         addresses: [10.1.1.1]
     "
         else
-            echoInfo "
+            info "
 1、修改网卡配置
 文件在 /etc/sysconfig/network-scripts/ifcfg-eth0
 DEVICE=eth0         #描述网卡对应的设备别名，例如ifcfg-eth0的文件中它为eth0
@@ -69,14 +65,14 @@ function tips() {
         read -p "请输入操作编号：" option
         case "$option" in
         1)
-            showChangeIpTips
+            show_change_ip_tips
             ;;
         9)
             clear
             break
             ;;
         *)
-            echoError '输入参数错误，请重试'
+            error '输入参数错误，请重试'
         esac
 
     done
