@@ -27,6 +27,7 @@ EOF
     script_name="${name}-completion.bash"
     # 将完成脚本内容写入文件
     echo "$content" > "/etc/bash_completion.d/$script_name"
+    info "添加脚本提示功能：source /etc/bash_completion.d/$script_name"
     source /etc/bash_completion.d/$script_name
     echo "创建 '$script_name' tab提示功能成功."
 }
