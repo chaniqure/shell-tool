@@ -4,10 +4,14 @@ service_template_url=$1/service/template/service_template.sh
 service_dir=$HOME
 function create_service_completion() {
     # 工具名称作为参数传入
+    if [ ! -d "/etc/bash_completion.d" ]; then
+        info "/etc/bash_completion.d 文件夹不存在，开始安装 bash-completion 工具"
+        apt-get update && apt-get install bash-completion && mkdir -p /etc/bash_completion.d
+    fi
     name=$1
     # 完成脚本的内容
     content=$(cat <<EOF
-_tool_completion() {
+_${name}_completion() {
     local cur=\${COMP_WORDS[COMP_CWORD]}
     local commands="start stop restart status"
 
@@ -32,7 +36,7 @@ EOF
 function get_template() {
     curl -o $service_dir/template.sh $service_template_url
     clear
-    input "下载脚本模板完成，路径：${pwd}/template.sh，修改里面的服务名和端口，按任意键退出"
+    input "下载脚本模板完成，路径：$service_dir/template.sh，修改里面的服务名和端口，按任意键退出"
 }
 
 function init_service() {
