@@ -1,6 +1,6 @@
 #!/bin/bash
 # 项目地址：https://github.com/chaniqure/shell-tool
-
+# 远程执行脚本命令：bash -c "$(curl -sLk  https://raw.githubusercontent.com/chaniqure/shell-tool/main/main.sh)"
 # 国内加速前缀
 innerPrefix="https://fastraw.ixnic.net/chaniqure/shell-tool/main"
 # 国外GitHub官方前缀
