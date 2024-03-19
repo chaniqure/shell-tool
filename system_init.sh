@@ -1,37 +1,37 @@
 #!/bin/bash
 
 # 将当前用户添加到docker操作组
-function addUserToDocker(){
-    mustRootUser
+function add_user_to_docker(){
+    must_root_user
     gpasswd -a $1 docker
     newgrp docker
     systemctl restart docker
 }
 
 # 基础初始化
-function baseInit() {
-    mustRootUser
+function base_init() {
+    must_root_user
     info "更改为上海时区"
     timedatectl set-timezone Asia/Shanghai
     info "安装常用命令工具：curl lrzsz unzip procps nfs-common vim socat conntrack ebtables ipset sudo"
-    commandInit
+    command_init
 }
 
 # 安装k3s
-function k3sInstall(){
-    mustRootUser
+function k3s_install(){
+    must_root_user
     curl -sfL https://get.k3s.io | sh -
 }
 
 # 安装常用的命令
-function commandInit() {
-    mustRootUser
+function command_init() {
+    must_root_user
     apt-get install -y curl lrzsz unzip procps nfs-common vim socat conntrack ebtables ipset sudo
 }
 
 # 安装docker
-function dockerInstall(){
-    mustRootUser
+function docker_install(){
+    must_root_user
     # curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 #     curl -sSL https://get.daocloud.io/docker | sh
     if ! which docker; then
@@ -44,18 +44,18 @@ function dockerInstall(){
             exit 1
         fi
     fi
-    changeDockerMirror
+    change_docker_mirror
 }
-function dockerComposeInstall(){
-    mustRootUser
+function docker_compose_install(){
+    must_root_user
     apt-get update
     apt-get install docker-compose
     # curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose & chmod +x /usr/local/bin/docker-compose
     # curl -sSL https://get.daocloud.io/docker | sh
 }
 # 更新docker仓库
-function changeDockerMirror(){
-    mustRootUser
+function change_docker_mirror(){
+    must_root_user
     FILE="/etc/docker/daemon.json"
     if [ -f $FILE ]; then
         error "docker配置文件已存在，停止改变docker镜像中心操作"
@@ -66,8 +66,8 @@ function changeDockerMirror(){
     fi
 }
 
-function permitRootRemoteLogin() {
-    mustRootUser
+function permit_root_remote_login() {
+    must_root_user
     FILE="/etc/ssh/sshd_config"
     if [[ `cat $FILE | grep 'PermitRootLogin yes' | wc -l` > 0 ]]; then
         error '已开启root远程登录'
@@ -81,8 +81,8 @@ function permitRootRemoteLogin() {
     fi
 }
 
-function permitDockerRemoteConnect() {
-    mustRootUser
+function permit_docker_remote_connect() {
+    must_root_user
     FILE="/lib/systemd/system/docker.service"
     if [[ `sed -n '/ExecStart/p' $FILE | grep 'tcp://0.0.0.0:2375' | wc -l` > 0 ]]; then
         error '已开启docker远程连接'
@@ -99,13 +99,13 @@ function permitDockerRemoteConnect() {
 }
 
 
-function addSudoer() {
-    mustRootUser
+function add_sudoer() {
+    must_root_user
     FILE='/etc/sudoers.d/custom'
     if [ ! -f $FILE ]; then
         touch $FILE
     fi
-    readInput '请输入用户名：'
+    require_input '请输入用户名：'
     if [[ `cat $FILE | grep $RESULT | wc -l` > 0 ]]; then
         error "已将 $RESULT 加入超级管理员"
     else
@@ -123,7 +123,7 @@ EOF
 # TEMP    ALL=(ALL:ALL) ALL
 # EOF` | sed -r -i "s#TEMP#$RESULT#" custom
 
-function handVimCopy() {
+function hand_vim_copy() {
     FILE="$HOME/.vimrc"
     if [ -f $FILE ]; then
         error "已配置vim拷贝问题"
@@ -141,7 +141,7 @@ EOF
 }
 
 
-function processAlias() {
+function process_alias() {
     FILE='.bashrc'
     cd ~
     if [ ! -f $FILE ]; then
@@ -225,35 +225,35 @@ function command() {
         read -p "请输入操作编号：" option
         case "$option" in
         1)
-            baseInit
+            base_init
             ;;
         2)
-            dockerInstall
+            docker_install
             ;;
         3)
-            k3sInstall
+            k3s_install
             ;;
         4)
-            dockerComposeInstall
+            docker_compose_install
             ;;
         5)
             readInput '请输入用户名：'
-            addUserToDocker $RESULT
+            add_user_to_docker $RESULT
             ;;
         6)
-            permitRootRemoteLogin
+            permit_root_remote_login
             ;;
         7)
-            permitDockerRemoteConnect
+            permit_docker_remote_connect
             ;;
         8)
-            addSudoer
+            add_sudoer
             ;;
         9)
-            handVimCopy
+            hand_vim_copy
             ;;
         10)
-            processAlias
+            process_alias
             ;;
         99)
             clear

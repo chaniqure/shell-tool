@@ -43,8 +43,8 @@ function error(){
 }
 
 # 校验端口是否占用
-function checkPort() {
-    checkPortProcess $1
+function check_port() {
+    check_port_process $1
     if [ $RESULT -gt 0 ] ; then
         RESULT=1
     else
@@ -53,11 +53,11 @@ function checkPort() {
 }
 
 # 循环校验进程是否启动，直到启动成功
-function checkProcess(){
+function check_process(){
     RUNNING=0
     while [ $RUNNING -eq 0 ]
     do
-        checkPort $2
+        check_port $2
         RUNNING=$RESULT
         sleep 1
 
@@ -70,13 +70,13 @@ function checkProcess(){
 }
 
 # 通过端口杀死进程
-function killByPort() {
+function kill_by_port() {
     echoInfo "trying to kill process by port \"$1\""
     if [ $1 -gt 0 ] ; then
-        checkPortProcess $1
+        check_port_process $1
         if [ $RESULT -gt 0 ] ; then
             echoInfo "process is running on port $1, try kill it..."
-            getPortProcessId $1
+            get_port_process_id $1
             kill -9 $RESULT
         else
             echoInfo "process is not running!"
@@ -85,17 +85,17 @@ function killByPort() {
 }
 
 # 获取端口进程id
-function getPortProcessId() {
+function get_port_process_id() {
     RESULT=`netstat -nlp | grep $1 | awk '{print $7}' | awk -F '/' '{print $1}'`
 }
 
 # 校验端口是否被占用
-function checkPortProcess() {
+function check_port_process() {
     RESULT=`netstat -nlp | grep $1 | awk "{print $7}" | wc -l`
 }
 
 # 初始化系统相关依赖
-function isRootUser() {
+function is_root_user() {
     RESULT=1
     if [ $UID -ne 0 ]; then
         RESULT=0
@@ -103,8 +103,8 @@ function isRootUser() {
 }
 
 # 判断当前用户是否是root用户，不是root用户就退出脚本执行
-function mustRootUser() {
-    isRootUser
+function must_root_user() {
+    is_root_user
     if [ $RESULT -eq 0 ] ; then
         error "please switch to root user"
         exit
@@ -113,7 +113,7 @@ function mustRootUser() {
 
 
 # 用于读取用户输入，必须输入
-function requireInput() {
+function require_input() {
     if [ "$1" = "" ]; then
         error "消息为空"
         exit

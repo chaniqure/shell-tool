@@ -2,11 +2,11 @@
 # 项目地址：https://github.com/chaniqure/shell-tool
 # 远程执行脚本命令：bash -c "$(curl -sLk  https://raw.githubusercontent.com/chaniqure/shell-tool/main/main.sh)"
 
-function getLocation() {
+function get_location() {
     # 国内加速前缀
-    innerLocation="https://fastraw.ixnic.net/chaniqure/shell-tool/main"
+    inner_location="https://fastraw.ixnic.net/chaniqure/shell-tool/main"
     # 国外GitHub官方前缀
-    outerLocation="https://raw.githubusercontent.com/chaniqure/shell-tool/main"
+    outer_location="https://raw.githubusercontent.com/chaniqure/shell-tool/main"
     # 执行脚本地址变量
     location=""
     while :; do echo
@@ -16,11 +16,11 @@ function getLocation() {
         read -p "请输入操作编号：" env
         case "$env" in
             1)
-                location=$innerLocation
+                location=$inner_location
                 break
                 ;;
             2)
-                location=$outerLocation
+                location=$outer_location
                 break
                 ;;
             *)
@@ -40,7 +40,7 @@ function execute() {
 
 function main() {
     # 初始化获取脚本地址
-    getLocation
+    get_location
     # 获取获取远程工具脚本
     execute func.sh
     while :; do echo
