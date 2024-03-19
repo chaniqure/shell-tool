@@ -58,12 +58,12 @@ function download_template() {
     mkdir -p $base_dir/docker/conf
     mkdir -p $base_dir/docker/data
     curl -o $base_dir/env.yml $env_url
-    replace $base_dir/env.yml "\$MYSQL_ROOT_PASS" $mysql_root_pass
-    replace $base_dir/env.yml "\$MONGO_USER" $mongo_user
-    replace $base_dir/env.yml "\$MONGO_PASS" $mongo_pass
+    replace_and_bak $base_dir/env.yml "\$MYSQL_ROOT_PASS" $mysql_root_pass
+    replace_and_bak $base_dir/env.yml "\$MONGO_USER" $mongo_user
+    replace_and_bak $base_dir/env.yml "\$MONGO_PASS" $mongo_pass
 #     sed -i "s/$MONGO_USER/$mongo_user/g" $base_dir/env.yml
     curl -o $base_dir/docker/conf/redis.conf $redis_conf_url
-    replace $base_dir/docker/conf/redis.conf $REDIS_PASS $redis_pass
+    replace_and_bak $base_dir/docker/conf/redis.conf "\$REDIS_PASS" $redis_pass
     curl -o $base_dir/docker/conf/mongo.conf $mongo_conf_url
 }
 
