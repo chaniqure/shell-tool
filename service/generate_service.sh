@@ -76,6 +76,7 @@ function remove_service() {
     service_name=$RESULT
     rm -rf /usr/local/bin/$service_name
     rm -rf /etc/bash_completion.d/$service_name-completion.bash
+    reset_bash_completion
     info "移除 $service_name 服务配置成功"
     input "按任意键退出"
 }
