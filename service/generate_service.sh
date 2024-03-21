@@ -65,9 +65,9 @@ function init_service() {
 function remove_service() {
     must_root_user
     require_input "请输入服务名："
-    if [ ! -f $RESULT ]; then
+    if [ ! -f "/usr/local/bin/$RESULT" ]; then
         while true; do
-            input "检测到 $RESULT 不存在，请确定服务名字："
+            input "检测到 /usr/local/bin/$RESULT 不存在，请确定服务名字："
             if [ -f $RESULT ]; then
                 break
             fi
