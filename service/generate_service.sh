@@ -59,7 +59,6 @@ function init_service() {
     replace /usr/local/bin/$service_name "\$PORT" $service_port
     chmod a+x /usr/local/bin/$service_name
     create_service_completion $service_name
-    clear
     info "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口"
     input "按任意键退出"
 }
