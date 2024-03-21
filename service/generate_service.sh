@@ -29,7 +29,7 @@ EOF
     echo "$content" > "/etc/bash_completion.d/$script_name"
     source "/etc/bash_completion.d/$script_name"
     info "创建 '$script_name' tab提示文件成功."
-    warn "添加脚本提示功能请执行命令：source /etc/bash_completion.d/$script_name"
+    warn "由于某些原因，需手动执行命令添加提示：source /etc/bash_completion.d/$script_name"
 }
 
 
