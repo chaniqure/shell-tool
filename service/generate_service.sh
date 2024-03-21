@@ -76,7 +76,7 @@ function remove_service() {
     service_name=$RESULT
     rm -rf /usr/local/bin/$service_name
     rm -rf /etc/bash_completion.d/$service_name-completion.bash
-    info "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口以及启动命令"
+    info "移除 $service_name 服务配置成功"
     input "按任意键退出"
 }
 # 下载模板的网址的前缀，由主脚本传入
