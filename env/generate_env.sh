@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 下载模板的网址的前缀，由主脚本传入
 env_url=$1/env/template/env.yml
 redis_conf_url=$1/env/template/redis.conf

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 service_template_url=$1/service/template/service_template.sh
 service_dir=$HOME
