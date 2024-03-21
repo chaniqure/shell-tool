@@ -106,7 +106,7 @@ function generate_service() {
             clear
             init_service
             ;;
-        2)
+        3)
             clear
             remove_service
             ;;
