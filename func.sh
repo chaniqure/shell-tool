@@ -140,3 +140,7 @@ function input() {
 function replace() {
     sed -i "s/$2/$3/g" $1
 }
+
+function reset_bash_completion() {
+    source /etc/profile.d/bash_completion.sh
+}

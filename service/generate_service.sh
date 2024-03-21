@@ -27,9 +27,9 @@ EOF
     script_name="${name}-completion.bash"
     # 将完成脚本内容写入文件
     echo "$content" > "/etc/bash_completion.d/$script_name"
-    info "添加脚本提示功能：source /etc/bash_completion.d/$script_name"
     source "/etc/bash_completion.d/$script_name"
-    info "创建 '$script_name' tab提示功能成功."
+    info "创建 '$script_name' tab提示文件成功."
+    warn "添加脚本提示功能请执行命令：source /etc/bash_completion.d/$script_name"
 }
 
 
@@ -62,6 +62,23 @@ function init_service() {
     info "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口以及启动命令"
     input "按任意键退出"
 }
+function remove_service() {
+    must_root_user
+    require_input "请输入服务名："
+    if [ ! -f $RESULT ]; then
+        while true; do
+            input "检测到 $RESULT 不存在，请确定服务名字："
+            if [ -f $RESULT ]; then
+                break
+            fi
+        done
+    fi
+    service_name=$RESULT
+    rm -rf /usr/local/bin/$service_name
+    rm -rf /etc/bash_completion.d/$service_name-completion.bash
+    info "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口以及启动命令"
+    input "按任意键退出"
+}
 # 下载模板的网址的前缀，由主脚本传入
 # 输入服务名
 # 是否需要安装成系统命令
@@ -79,6 +96,7 @@ function generate_service() {
         echo -e '请选择操作'
         echo -e "\t1. 下载单项目启动脚本"
         echo -e "\t2. 创建单项目控制服务"
+        echo -e "\t3. 移除单项目控制服务"
         read -p "请输入操作编号：" option
         case "$option" in
         1)
@@ -87,6 +105,10 @@ function generate_service() {
         2)
             clear
             init_service
+            ;;
+        2)
+            clear
+            remove_service
             ;;
         *)
             error '输入参数错误，请重试'
