@@ -37,7 +37,7 @@ EOF
 function get_template() {
     curl -o $service_dir/template.sh $service_template_url
     clear
-    input "下载脚本模板完成，路径：$service_dir/template.sh，修改里面的服务名和端口，按任意键退出"
+    input "下载脚本模板完成，路径：$service_dir/template.sh，修改里面的服务名和端口以及启动命令，按任意键退出"
 }
 
 function init_service() {
@@ -59,7 +59,7 @@ function init_service() {
     replace /usr/local/bin/$service_name "\$PORT" $service_port
     chmod a+x /usr/local/bin/$service_name
     create_service_completion $service_name
-    info "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口"
+    info "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口以及启动命令"
     input "按任意键退出"
 }
 # 下载模板的网址的前缀，由主脚本传入
