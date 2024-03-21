@@ -142,5 +142,6 @@ function replace() {
 }
 
 function reset_bash_completion() {
+    # 重置bash脚本提示
     source /etc/profile.d/bash_completion.sh
 }

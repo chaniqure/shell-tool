@@ -62,6 +62,7 @@ function init_service() {
     info "创建服务完成，启动文件路径：/usr/local/bin/$service_name，修改里面的服务名和端口以及启动命令"
     input "按任意键退出"
 }
+
 function remove_service() {
     must_root_user
     require_input "请输入服务名："
