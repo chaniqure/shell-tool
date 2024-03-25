@@ -142,8 +142,9 @@ EOF
 
 
 function process_alias() {
-    info "示例："
-    info "
+    info '
+示例：
+===================================================================
 alias la="ls -al --color=auto"
 alias ll="ls -l --color=auto"
 alias dockerc="docker-compose"
@@ -156,9 +157,10 @@ kdp="kubectl describe po"
 kds="kubectl describe svc"
 alias kcd="kubectl config set-context --current --namespace"
 function kin() {
-    kubectl exec -it $1 -- /bin/sh
+    kubectl exec -it $1 /bin/bash
 }
-"
+===================================================================
+'
 #     FILE='.bashrc'
 #     cd ~
 #     if [ ! -f $FILE ]; then
