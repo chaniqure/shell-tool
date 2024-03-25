@@ -200,6 +200,7 @@ EOF`
             fi
         done
     fi
+    info '添加别名完成'
     # source ~/.bashrc
 }
 
