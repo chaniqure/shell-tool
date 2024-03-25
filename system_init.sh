@@ -200,7 +200,7 @@ EOF`
             fi
         done
     fi
-    source ~/.bashrc
+    # source ~/.bashrc
 }
 
 function command() {

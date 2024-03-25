@@ -71,8 +71,8 @@ function main() {
                 ;;
             5)
                 clear
-                info "执行地址为：$location/help.sh"
-                execute service/help.sh
+                # info "执行地址为：$location/help.sh"
+                execute help.sh
                 ;;
             *)
                 error "输入参数错误，请重试"
