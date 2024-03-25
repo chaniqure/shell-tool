@@ -142,65 +142,82 @@ EOF
 
 
 function process_alias() {
-    FILE='.bashrc'
-    cd ~
-    if [ ! -f $FILE ]; then
-        touch $FILE
-    else
-        declare -A alias_map
-        # 镜像对应的开放的端口
-        alias_map["la="]='alias la="ls -al --color=auto"'
-        alias_map["ll="]='alias ll="ls -l --color=auto"'
-        alias_map["dockerc"]='alias dockerc="docker-compose"'
-        alias_map["dockerma"]='alias dockerma="docker rm -v $(docker ps -aq -f status=exited)"'
-        alias_map["dockerin"]='function dockerin() {
+    info "示例："
+    info "
+alias la="ls -al --color=auto"
+alias ll="ls -l --color=auto"
+alias dockerc="docker-compose"
+alias dockerma="docker rm -v $(docker ps -aq -f status=exited)"
+function dockerin() {
     docker exec -it $1 /bin/bash
-}'
-        alias_map["k="]='alias k="kubectl"'
-        alias_map["kdp="]='alias kdp="kubectl describe po"'
-        alias_map["kds="]='alias kds="kubectl describe svc"'
-        alias_map["kcd="]='alias kcd="kubectl config set-context --current --namespace"'
-        alias_map["kt="]='alias kt="kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath=\"{.secrets[0].name}\") -o go-template=\"{{.data.token | base64decode}}\""'
-        alias_map["kin"]='function kin() {
+}
+alias k="kubectl"
+kdp="kubectl describe po"
+kds="kubectl describe svc"
+alias kcd="kubectl config set-context --current --namespace"
+function kin() {
     kubectl exec -it $1 -- /bin/sh
-}'
-        for key in ${!alias_map[@]}
-        do
-            if [[ `sed 's/^[ \t]*//g' $FILE | sed -n '/^[^#]/p' | grep $key | wc -l` > 0 ]];then
-                    error "${alias_map[$key]} 已存在"
-            else
-                if [ "$key" = "la=" ] || [ "$key" = "ll=" ];then
-                   `cat >> $FILE <<EOF
-${alias_map[$key]}
-EOF`
-                else
-                    if [[ `echo "${alias_map[$key]}" | grep "docker" | wc -l` > 0 ]];then
-                        if [[ `command -v docker | wc -l` = 0 ]];then
-                            error "docker运行环境不存在，相关别名设置跳过"
-                        else
-                            `cat >> $FILE <<EOF
-${alias_map[$key]}
-EOF`
-                        fi
-                    elif [[ `echo "${alias_map[$key]}" | grep "kubectl" | wc -l` > 0 ]]; then
-                        #statements
-                        if [[ `command -v kubectl | wc -l` = 0 ]];then
-                            error "kubenetes运行环境不存在，相关别名设置跳过"
-                        else
-                            `cat >> $FILE <<EOF
-${alias_map[$key]}
-EOF`
-                        fi
-                    fi
-                fi
-                # 先替换空格和制表符，然后在判断是否以#开头
-                if [[ `sed 's/^[ \t]*//g' $FILE | sed -n '/^[^#]/p' | grep $key | wc -l` > 0 ]];then
-                    info "${alias_map[$key]} 添加成功"
-                fi
-            fi
-        done
-    fi
-    info '添加别名完成'
+}
+"
+#     FILE='.bashrc'
+#     cd ~
+#     if [ ! -f $FILE ]; then
+#         touch $FILE
+#     else
+#         declare -A alias_map
+#         # 镜像对应的开放的端口
+#         alias_map["la="]='alias la="ls -al --color=auto"'
+#         alias_map["ll="]='alias ll="ls -l --color=auto"'
+#         alias_map["dockerc"]='alias dockerc="docker-compose"'
+#         alias_map["dockerma"]='alias dockerma="docker rm -v $(docker ps -aq -f status=exited)"'
+#         alias_map["dockerin"]='function dockerin() {
+#     docker exec -it $1 /bin/bash
+# }'
+#         alias_map["k="]='alias k="kubectl"'
+#         alias_map["kdp="]='alias kdp="kubectl describe po"'
+#         alias_map["kds="]='alias kds="kubectl describe svc"'
+#         alias_map["kcd="]='alias kcd="kubectl config set-context --current --namespace"'
+#         alias_map["kt="]='alias kt="kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath=\"{.secrets[0].name}\") -o go-template=\"{{.data.token | base64decode}}\""'
+#         alias_map["kin"]='function kin() {
+#     kubectl exec -it $1 -- /bin/sh
+# }'
+#         for key in ${!alias_map[@]}
+#         do
+#             if [[ `sed 's/^[ \t]*//g' $FILE | sed -n '/^[^#]/p' | grep $key | wc -l` > 0 ]];then
+#                     error "${alias_map[$key]} 已存在"
+#             else
+#                 if [ "$key" = "la=" ] || [ "$key" = "ll=" ];then
+#                    `cat >> $FILE <<EOF
+# ${alias_map[$key]}
+# EOF`
+#                 else
+#                     if [[ `echo "${alias_map[$key]}" | grep "docker" | wc -l` > 0 ]];then
+#                         if [[ `command -v docker | wc -l` = 0 ]];then
+#                             error "docker运行环境不存在，相关别名设置跳过"
+#                         else
+#                             `cat >> $FILE <<EOF
+# ${alias_map[$key]}
+# EOF`
+#                         fi
+#                     elif [[ `echo "${alias_map[$key]}" | grep "kubectl" | wc -l` > 0 ]]; then
+#                         #statements
+#                         if [[ `command -v kubectl | wc -l` = 0 ]];then
+#                             error "kubenetes运行环境不存在，相关别名设置跳过"
+#                         else
+#                             `cat >> $FILE <<EOF
+# ${alias_map[$key]}
+# EOF`
+#                         fi
+#                     fi
+#                 fi
+#                 # 先替换空格和制表符，然后在判断是否以#开头
+#                 if [[ `sed 's/^[ \t]*//g' $FILE | sed -n '/^[^#]/p' | grep $key | wc -l` > 0 ]];then
+#                     info "${alias_map[$key]} 添加成功"
+#                 fi
+#             fi
+#         done
+#     fi
+#     info '添加别名完成'
     # source ~/.bashrc
 }
 
