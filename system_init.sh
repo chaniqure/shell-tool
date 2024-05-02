@@ -150,7 +150,7 @@ alias ll="ls -l --color=auto"
 alias dockerc="docker-compose"
 alias dockerma="docker rm -v $(docker ps -aq -f status=exited)"
 function dockerin() {
-    docker exec -it $1 /bin/bash
+    docker exec -it $1 /bin/sh
 }
 alias k="kubectl"
 kdp="kubectl describe po"
