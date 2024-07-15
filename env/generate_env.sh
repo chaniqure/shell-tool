@@ -3,6 +3,8 @@
 env_url=$1/env/template/env.yml
 redis_conf_url=$1/env/template/redis.conf
 mongo_conf_url=$1/env/template/mongo.conf
+mysql_conf_url=$1/env/template/my.cnf
+nacos_conf_url=$1/env/template/nacos-standlone-mysql.env
 printf "
 #######################################################################
                            开始初始化开发环境
@@ -55,16 +57,18 @@ function download_template() {
             fi
         done
     fi
-    mkdir -p $env_dir/docker/conf
-    mkdir -p $env_dir/docker/data
+    mkdir -p $env_dir/conf
+    mkdir -p $env_dir/data
     curl -o $env_dir/env.yml $env_url
     replace $env_dir/env.yml "\$MYSQL_ROOT_PASS" $mysql_root_pass
     replace $env_dir/env.yml "\$MONGO_USER" $mongo_user
     replace $env_dir/env.yml "\$MONGO_PASS" $mongo_pass
 #     sed -i "s/$MONGO_USER/$mongo_user/g" $env_dir/env.yml
-    curl -o $env_dir/docker/conf/redis.conf $redis_conf_url
-    replace $env_dir/docker/conf/redis.conf "\$REDIS_PASS" $redis_pass
-    curl -o $env_dir/docker/conf/mongo.conf $mongo_conf_url
+    curl -o $env_dir/conf/redis.conf $redis_conf_url
+    replace $env_dir/conf/redis.conf "\$REDIS_PASS" $redis_pass
+    curl -o $env_dir/conf/mongo.conf $mongo_conf_url
+    curl -o $env_dir/conf/my.cnf $mysql_conf_url
+    curl -o $env_dir/conf/nacos-standlone-mysql.env $nacos_conf_url
 }
 
 function db_tips() {
