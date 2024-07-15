@@ -148,6 +148,7 @@ function process_alias() {
 alias la="ls -al --color=auto"
 alias ll="ls -l --color=auto"
 alias dockerc="docker-compose"
+alias dockercr="docker-compose up --remove-orphans -d"
 alias dockerma="docker rm -v $(docker ps -aq -f status=exited)"
 function dockerin() {
     docker exec -it $1 /bin/sh
